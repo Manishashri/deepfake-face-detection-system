@@ -52,16 +52,16 @@ The system was trained and evaluated using:
 
 # Project Workflow
 
-1. Video Upload
-2. Frame Extraction
-3. Face Detection using MTCNN
-4. ResNet-50 Feature Extraction
-5. Multi-Head Feature Decomposition
-6. MH-LDA Transformation
-7. CViT2 Prediction
-8. Temporal Aggregation
-9. Logistic Regression Classification
-10. Final REAL / FAKE Prediction
+1. Video Upload  
+2. Frame Extraction  
+3. Face Detection using MTCNN  
+4. ResNet-50 Feature Extraction  
+5. Multi-Head Feature Decomposition  
+6. MH-LDA Transformation  
+7. CViT2 Prediction  
+8. Temporal Aggregation  
+9. Logistic Regression Classification  
+10. Final REAL / FAKE Prediction  
 
 ---
 
@@ -103,7 +103,8 @@ deepfake-face-detection-system/
 │   ├── roc.png
 │   ├── frame_probs.png
 │   ├── bar_chart.png
-│   └── line_chart.png
+│   ├── line_chart.png
+│   └── screenshots/
 │
 ├── model/
 │   ├── encoder.pth
