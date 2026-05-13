@@ -112,3 +112,7 @@ deepfake-face-detection-system/
 │   └── logreg.pkl
 │
 └── README.md
+![Home Page](static/screenshots/homepage.png)
+![Detection Result](static/screenshots/result.png)
+![ROC Curve](static/screenshots/roc.png)
+![Probability Graph](static/screenshots/probability.png)
