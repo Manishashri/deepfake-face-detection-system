@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Face Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Deepfake Face Detection System</h1>
+        <p>Hybrid Framework using ResNet-50 + Multi-Head LDA + CViT2</p>
+    </div>
+
+    <!-- UPLOAD SECTION -->
+    <div class="upload-section">
+        <form id="uploadForm">
+            <label class="upload-box">
+                Click to Upload Video
+                <input type="file" name="video" required>
+            </label>
+
+            <button type="submit">Detect</button>
+
+            <div id="loader" class="loader hidden">
+                <div class="spinner"></div>
+                <p>Analyzing video... Please wait</p>
+            </div>
+        </form>
+    </div>
+
+    <!-- RESULT SECTION -->
+    <div class="section">
+        <h2 id="prediction"></h2>
+
+        <table class="data-table">
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Prediction</td>
+                <td id="label"></td>
+            </tr>
+            <tr>
+                <td>Confidence Score</td>
+                <td id="confidence"></td>
+            </tr>
+            <tr>
+                <td>Frames Analyzed</td>
+                <td id="frames"></td>
+            </tr>
+        </table>
+
+        <img id="plot" src="" alt="">
+    </div>
+
+    <!-- PROJECT OVERVIEW -->
+    <div class="section">
+        <h3>Project Overview</h3>
+        <table class="data-table">
+            <tr><td>Problem Statement</td><td>Deepfake Video Detection</td></tr>
+            <tr><td>Dataset Used</td><td>FaceForensics++ + CelebDF + CViT Validation</td></tr>
+            <tr><td>Total Evaluation Samples</td><td>400 Videos</td></tr>
+            <tr><td>Input Type</td><td>Video (.mp4)</td></tr>
+            <tr><td>Output</td><td>REAL / FAKE Classification</td></tr>
+        </table>
+    </div>
+
+    <!-- MODEL OVERVIEW -->
+    <div class="section">
+        <h3>Model Overview</h3>
+        <table class="data-table">
+            <tr><td>Backbone CNN</td><td>ResNet-50</td></tr>
+            <tr><td>Face Detector</td><td>MTCNN</td></tr>
+            <tr><td>Feature Dimension</td><td>2048-D Deep Features</td></tr>
+            <tr><td>Discriminative Learning</td><td>Multi-Head LDA (4 Heads)</td></tr>
+            <tr><td>Transformer Model</td><td>CViT2 (Convolutional Vision Transformer)</td></tr>
+            <tr><td>Temporal Aggregation</td><td>Frame-wise Probability Pooling</td></tr>
+            <tr><td>Final Classifier</td><td>Logistic Regression + Weighted Fusion</td></tr>
+        </table>
+    </div>
+
+    <!-- ACCURACY IMPROVEMENT -->
+    <div class="section">
+        <h3>Accuracy Improvement after CViT Integration</h3>
+        <table class="data-table">
+            <tr>
+                <th>Model Version</th>
+                <th>Method Used</th>
+                <th>Accuracy</th>
+            </tr>
+            <tr>
+                <td>Baseline Model</td>
+                <td>ResNet50 + MH LDA + Logistic Regression</td>
+                <td>88.00%</td>
+            </tr>
+            <tr class="highlight">
+                <td>Final Hybrid Model</td>
+                <td>ResNet50 + MH-LDA + CViT2 + Weighted Fusion</td>
+                <td>95.75%</td>
+            </tr>
+        </table>
+
+        <p class="note">
+            Improvement achieved by combining transformer-based CViT2 prediction
+            with discriminative CNN feature learning.
+        </p>
+    </div>
+
+    <!-- CVIT RESULTS -->
+    <div class="section">
+        <h3>CViT2 Pipeline Results</h3>
+        <table class="data-table">
+            <tr><th>Metric</th><th>Result</th></tr>
+            <tr><td>CViT Model Used</td><td>cvit2_deepfake_detection_ep_50</td></tr>
+            <tr><td>Frames Processed</td><td>15 Frames</td></tr>
+            <tr><td>CViT Prediction</td><td>REAL</td></tr>
+            <tr><td>CViT Probability</td><td>0.1269</td></tr>
+            <tr><td>Our Model Probability</td><td>0.0882</td></tr>
+            <tr><td>Final Weighted Probability</td><td>0.1153</td></tr>
+            <tr class="highlight"><td>Final Decision</td><td>REAL</td></tr>
+        </table>
+    </div>
+
+    <!-- FINAL PERFORMANCE -->
+    <div class="section">
+        <h3>Final Performance Evaluation</h3>
+        <table class="data-table">
+            <tr>
+                <th>Metric</th>
+                <th>REAL</th>
+                <th>FAKE</th>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td>0.97</td>
+                <td>0.94</td>
+            </tr>
+            <tr>
+                <td>Recall</td>
+                <td>0.94</td>
+                <td>0.97</td>
+            </tr>
+            <tr>
+                <td>F1 Score</td>
+                <td>0.96</td>
+                <td>0.96</td>
+            </tr>
+        </table>
+
+        <p class="note">
+            Overall Accuracy = 95.75%
+        </p>
+    </div>
+
+</div>
+<!-- ADD this section inside index.html BELOW Final Performance Evaluation -->
+<div class="section">
+    <h3>Performance Visualization</h3>
+
+    <div class="graph-grid">
+
+        <!-- ROC Curve -->
+        <div class="graph-card">
+            <h4>ROC Curve Analysis</h4>
+            <img src="/static/roc.png" alt="ROC Curve">
+        </div>
+
+        <!-- Frame Probability Graph -->
+        <div class="graph-card">
+            <h4>Frame-wise Fake Probability</h4>
+            <img src="/static/frame_probs.png" alt="Frame Probability">
+        </div>
+
+        <!-- Combined Graph -->
+        <div class="graph-card full-width">
+            <h4>Model Performance Comparison</h4>
+            <img src="/static/model_performance.png" alt="Model Performance Comparison">
+        </div>
+
+    </div>
+</div>
+<script>
+document.getElementById("uploadForm").onsubmit = async function(e) {
+    e.preventDefault();
+
+    document.getElementById("loader").classList.remove("hidden");
+
+    let formData = new FormData(this);
+
+    const res = await fetch("/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    document.getElementById("loader").classList.add("hidden");
+
+    document.getElementById("prediction").innerText =
+        data.label === "FAKE" ? "⚠ FAKE VIDEO" : "✔ REAL VIDEO";
+
+    document.getElementById("prediction").className =
+        data.label === "FAKE" ? "fake" : "real";
+
+    document.getElementById("label").innerText = data.label;
+    document.getElementById("confidence").innerText = data.confidence;
+    document.getElementById("frames").innerText = data.num_frames_used;
+
+    document.getElementById("plot").src =
+        "/static/frame_probs.png?" + new Date().getTime();
+};
+</script>
+
+</body>
+</html>
